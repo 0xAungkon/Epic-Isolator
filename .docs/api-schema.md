@@ -9,14 +9,14 @@ This document details all API endpoints, request/response formats, and error cod
 * **Request**:
   ```json
   {
-    "username": "string",
-    "password": "string"
+    "username": "user@example.com",
+    "password": "securepassword123"
   }
   ```
 * **Response 200**:
   ```json
   {
-    "access-token": "string"
+    "access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
   }
   ```
 * **Errors**:
@@ -30,22 +30,41 @@ This document details all API endpoints, request/response formats, and error cod
 * **Request**:
   ```json
   {
-    "deb_url": "string",
-    "file_upload": "file",
+    "deb_url": "https://example.com/app.deb",
+    "file_upload": null,
     "advanced_options": {
-      "cpu_limit": "float",
-      "ram_limit": "float",
-      "custom_commands": ["string"],
-      "docker_image": "string",
-      "ssh_port": "int"
-    },
+      "cpu_limit": 1.5,
+      "ram_limit": 2048,
+      "custom_commands_before_install": [
+        "apt-get update",
+        "echo Pre-install step"
+      ],
+      "custom_commands_after_install": [
+        "echo Post-install step"
+      ],
+      "docker_image": "ubuntu:22.04",
+      "ssh_port": 2222,
+      "mounts": [
+        "/host/data:/container/data"
+      ],
+      "env_vars": {
+        "ENV_MODE": "production",
+        "DEBUG": "false"
+      },
+      "remapped_mounts": {
+        "/host/config": "/container/config"
+      },
+      "remapped_ports": {
+        "8080": "80"
+      }
+    }
   }
   ```
 * **Response 200**:
   ```json
   {
     "status": "success",
-    "app_id": "integer"
+    "app_id": 12345
   }
   ```
 * **Errors**:
@@ -59,9 +78,14 @@ This document details all API endpoints, request/response formats, and error cod
   ```json
   [
     {
-      "id": "integer",
-      "name": "string",
-      "status": "string"
+      "id": 1,
+      "name": "Sample App",
+      "status": "running"
+    },
+    {
+      "id": 2,
+      "name": "Another App",
+      "status": "stopped"
     }
   ]
   ```
@@ -85,7 +109,7 @@ This document details all API endpoints, request/response formats, and error cod
 * **Response 200**:
   ```json
   {
-    "logs": "string"
+    "logs": "Log entry 1\nLog entry 2\nLog entry 3"
   }
   ```
 * **Errors**:
@@ -99,7 +123,7 @@ This document details all API endpoints, request/response formats, and error cod
 * **Response 200**:
   ```json
   {
-    "backup_file": "string"
+    "backup_file": "backup_12345.tar.gz"
   }
   ```
 * **Errors**:
@@ -111,14 +135,14 @@ This document details all API endpoints, request/response formats, and error cod
 * **Request**:
   ```json
   {
-    "backup_file": "file"
+    "backup_file": "backup_12345.tar.gz"
   }
   ```
 * **Response 200**:
   ```json
   {
     "status": "success",
-    "new_app_id": "integer"
+    "new_app_id": 67890
   }
   ```
 * **Errors**:
@@ -132,8 +156,8 @@ This document details all API endpoints, request/response formats, and error cod
 * **Response 200**:
   ```json
   {
-    "cpu": "float",
-    "ram": "float"
+    "cpu": 45.6,
+    "ram": 2048.0
   }
   ```
 * **Errors**:
@@ -145,9 +169,14 @@ This document details all API endpoints, request/response formats, and error cod
   ```json
   [
     {
-      "app_id": "integer",
-      "cpu": "float",
-      "ram": "float"
+      "app_id": 1,
+      "cpu": 12.3,
+      "ram": 512.0
+    },
+    {
+      "app_id": 2,
+      "cpu": 8.7,
+      "ram": 1024.0
     }
   ]
   ```
