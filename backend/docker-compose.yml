@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - ~/epic-isolator:/root/epic-isolator
+    environment:
+      - SECRET_KEY=${SECRET_KEY:-supersecretkey}
+      - DB_PATH=${DB_PATH:-/root/epic-isolator/data/epic.db}
+      - BACKUP_DIR=${BACKUP_DIR:-/root/epic-isolator/backups}
+      - LOG_DIR=${LOG_DIR:-/root/epic-isolator/logs}
+    restart: unless-stopped
+    privileged: true  # Needed to manage Docker containers from within a container
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

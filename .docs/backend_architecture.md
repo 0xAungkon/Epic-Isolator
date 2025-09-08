@@ -6,11 +6,11 @@ This document details the backend architecture, data models, and implementation 
 
 * **Framework**: FastAPI
 * **Database**: SQLite
-* **ORM**: SQLModel
+* **ORM**: PeeWee
 * **Authentication**: JWT tokens via python-jose
 * **Password Hashing**: passlib
 * **Container Management**: Docker SDK for Python
-* **SSH Handling**: paramiko / asyncssh
+* **SSH Handling**:  asyncssh
 
 ## 2. Application Structure
 

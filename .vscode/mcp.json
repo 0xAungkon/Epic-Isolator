@@ -1,0 +1,16 @@
+{
+    "servers": {
+        "filesystem": {
+            "command": "docker",
+            "args": [
+            "run",
+            "-i",
+            "--rm",
+            "--mount", "type=bind,src=/home/amd/Desktop/Epic-Isolator,dst=/Epic-Isolator",
+            "mcp/filesystem",
+            "/Epic-Isolator"
+            ]
+      }
+    }
+  }
+  
